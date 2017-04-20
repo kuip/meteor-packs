@@ -21,6 +21,7 @@ Package.onUse(function(api) {
     'accounts-github',
     'accounts-twitter',
     'accounts-ui',
+    'service-configuration',
     'oro8oro:user-schema'
   ]);
   api.use([
