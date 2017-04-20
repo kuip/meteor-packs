@@ -1,0 +1,4 @@
+html, body, .content-container, .rating-container {
+  height: 100%;
+  overflow-y: hidden;
+}
