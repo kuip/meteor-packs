@@ -1,10 +1,12 @@
 import React from 'react';
 
+import './ImageComponent.css';
+
 const ImageComponent = React.createClass({
   render() {
     return React.createElement(
       "img", {
-        className: "rating-iframe",
+        className: this.props.className,
         src: this.props.src,
         alt: "Image"
         //width: '100%',

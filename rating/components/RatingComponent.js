@@ -43,13 +43,13 @@ const RatingStateComponent = React.createClass({
   },
   componentWillReceiveProps(newprops) {
     console.log('RatingStateComponent componentWillReceiveProps', newprops)
-    $('#rating-state').barrating('set', this.getAverageRating(newprops).rating);
+    $(this.refs.ratingEl).barrating('set', this.getAverageRating(newprops).rating);
   },
   componentDidMount() {
-    console.log('RatingStateComponent', this.props)
+    //console.log('RatingStateComponent', this.props)
     let ratings = this.getAverageRating();
 
-    $('#rating-state').barrating('show', {
+    $(this.refs.ratingEl).barrating('show', {
         theme: 'css-stars',
         initialRating: ratings.rating || 0,
         readonly: true
@@ -58,12 +58,13 @@ const RatingStateComponent = React.createClass({
     });
   },
   render() {
+    let { className } = this.props;
     return React.createElement(
-      "div", { className: "box-body"},
+      "div", { className },
       React.createElement("select", {
-        id:"rating-state",
         name: "rating",
-        autoComplete: "off"
+        autoComplete: "off",
+        ref: "ratingEl"//{(select) => { this.el = select }}
       },
       this.props.options.map(function(opt) {
         return React.createElement("option", {value: opt, key: opt}, opt);
@@ -80,7 +81,7 @@ const RatingActiveComponent = React.createClass({
   componentDidMount() {
     console.log('RatingActiveComponent', this.props, this.props.rating ? this.props.rating.rating : 0)
     let self = this;
-    $('#rating-active').barrating('show', {
+    $(this.refs.ratingEl).barrating('show', {
         theme: 'css-stars',
         initialRating: this.props.rating ? this.props.rating.rating : 0,
         //theme: 'bars-1to10'
@@ -100,7 +101,7 @@ const RatingActiveComponent = React.createClass({
     return React.createElement(
       "div", { className: "box-body"},
       React.createElement("select", {
-        id:"rating-active",
+        ref: "ratingEl",
         name: "rating",
         autoComplete: "off"
       },
@@ -112,4 +113,4 @@ const RatingActiveComponent = React.createClass({
   }
 });
 
-export { RatingComponent }
+export { RatingComponent, RatingStateComponent, RatingActiveComponent };
