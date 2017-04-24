@@ -15,6 +15,7 @@ Package.onUse(function(api) {
   api.use([
     'ecmascript',
     'check',
+    'react-meteor-data',
     "aldeed:collection2@2.10.0",
     "aldeed:simple-schema@1.5.3",
     'oro8oro:base-schema'
