@@ -6,4 +6,5 @@ if(Meteor.isClient) {
 
 if(Meteor.isServer) {
   import './serviceconfig';
+  import './onCreateUser';
 }
