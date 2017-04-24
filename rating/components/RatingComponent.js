@@ -23,9 +23,15 @@ const RatingComponent = React.createClass({
 
     return React.createElement(
       "div", { className: "rating-container", height: '90%'},
-      !loading ? React.createElement(RatingStateComponent, { rated, options, tag }) : null,
-      Meteor.userId() && !loading ? React.createElement(RatingActiveComponent, { rating, options, uri, tag }) : null,
-      React.createElement(ImageComponent, {src: uri})
+      React.createElement(
+        "div", { className: "rtng-cont" },
+        !loading ? React.createElement(RatingStateComponent, { rated, options, tag, className: 'rtng-state' }) : null,
+        Meteor.userId() && !loading ? React.createElement(RatingActiveComponent, { rating, options, uri, tag, className: 'rtng-active' }) : null
+      ),
+      React.createElement(ImageComponent, {
+        src: uri,
+        className: 'fitt center'
+      })
     );
   }
 });
@@ -34,24 +40,46 @@ const RatingStateComponent = React.createClass({
   getAverageRating(props) {
     props = props || this.props;
     if(props.rated) {
-      props.rated.ratings[props.tag].rating = Math.round(props.rated.ratings[props.tag].rating);
       return props.rated.ratings[props.tag];
     }
     else {
       return { rating: 0, raters: 0 };
     }
   },
+  render() {
+    let { rated, options, tag, className } = this.props;
+    let ratings = this.getAverageRating();
+
+    return React.createElement(
+      "div", {  },
+      React.createElement(RatingStateComponentStars, { ratings, options, tag, className}),
+      React.createElement(RatingStateComponentUserNo, { ratings })
+    );
+  }
+});
+
+const RatingStateComponentUserNo = React.createClass({
+  render() {
+    let { ratings } = this.props
+    return React.createElement('span', { },
+      ratings.rating + '/5' + ' - ' + ratings.raters + ' votes'
+    )
+  }
+});
+
+const RatingStateComponentStars = React.createClass({
   componentWillReceiveProps(newprops) {
     console.log('RatingStateComponent componentWillReceiveProps', newprops)
-    $(this.refs.ratingEl).barrating('set', this.getAverageRating(newprops).rating);
+    if(newprops.ratings)
+      $(this.refs.ratingEl).barrating('set', Math.round(newprops.ratings.rating));
   },
   componentDidMount() {
     //console.log('RatingStateComponent', this.props)
-    let ratings = this.getAverageRating();
+    let { ratings } = this.props;
 
     $(this.refs.ratingEl).barrating('show', {
         theme: 'css-stars',
-        initialRating: ratings.rating || 0,
+        initialRating: Math.round(ratings.rating || 0),
         readonly: true
         //showValues: true
         //theme: 'bars-1to10'
@@ -98,8 +126,10 @@ const RatingActiveComponent = React.createClass({
     });
   },
   render() {
+    let { className } = this.props;
+
     return React.createElement(
-      "div", { className: "box-body"},
+      "div", { className },
       React.createElement("select", {
         ref: "ratingEl",
         name: "rating",

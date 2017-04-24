@@ -1,7 +1,9 @@
 .rtng-brws-div{
     float: left;
+    text-align: center;
+    margin: 0px auto 0px auto;
 }
 
 .rtng-brws-rt25 {
-    margin-left: 25%;
+    margin-left: 29%;
 }

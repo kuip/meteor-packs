@@ -1,3 +1,21 @@
 html, body, .content-container, .rating-container {
   height: 100%;
 }
+
+.rtng-brws-rt50 {
+    margin-left: 50%;
+}
+
+.rtng-cont {
+  margin-left: 45%;
+}
+
+.fitt {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.center {
+  display: block;
+  margin: auto;
+}

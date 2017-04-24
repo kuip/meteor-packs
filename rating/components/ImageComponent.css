@@ -2,14 +2,14 @@
 
 }
 
-.small {
-  width: 20%;
-  padding: 1%;
-}
-
 .tiny {
   width: 10%;
   padding: 0.5%;
+}
+
+.small {
+  width: 20%;
+  padding: 1%;
 }
 
 .big {
@@ -19,6 +19,11 @@
 
 .large {
   width: 50%;
+  padding: 1%;
+}
+
+.huge {
+  width: 80%;
   padding: 1%;
 }
 

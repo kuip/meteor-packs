@@ -3,6 +3,8 @@ import QRCode from 'qrcodejs2';
 
 import { ImageComponent } from './ImageComponent';
 
+import './QRRatingComponent.css';
+
 const QRRatingComponent = React.createClass({
   componentWillMount() {
     this.url = decodeURIComponent(this.props.location.search.substring(5));
@@ -13,9 +15,9 @@ const QRRatingComponent = React.createClass({
     let apiPath = this.props.route.data.apiPath;
     let ratingUrl = Meteor.absoluteUrl() + apiPath + '?url=' + encodeURIComponent(url);
 
-    return React.createElement('div', {},
+    return React.createElement('div', { className: 'maxh' },
       React.createElement(QRComponent, { url: ratingUrl }),
-      React.createElement(ImageComponent, { src: url})
+      React.createElement(ImageComponent, { src: url, className: 'fitt center' })
     );
   }
 });
@@ -36,7 +38,11 @@ const QRComponent = React.createClass({
     //qrcode.makeCode("http://naver.com"); // make another code.
   },
   render() {
-    return React.createElement('a', {id:"qrcode", href:this.props.url});
+    return React.createElement('a', {
+      id: "qrcode",
+      href: this.props.url,
+      className: 'qrcode'
+    });
   }
 });
 

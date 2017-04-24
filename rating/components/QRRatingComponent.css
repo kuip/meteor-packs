@@ -1,0 +1,9 @@
+.qrcode {
+  position: absolute;
+  margin-left: 83%;
+  margin-top: 20px;
+}
+
+.maxh {
+  height: 100%;
+}
