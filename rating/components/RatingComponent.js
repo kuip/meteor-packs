@@ -60,9 +60,12 @@ const RatingStateComponent = React.createClass({
 
 const RatingStateComponentUserNo = React.createClass({
   render() {
-    let { ratings } = this.props
+    let { ratings } = this.props;
+    let r = ratings.rating;
+    if(Math.round(r) != r)
+      r = r.toFixed(1);
     return React.createElement('span', { },
-      ratings.rating + '/5' + ' - ' + ratings.raters + ' votes'
+      r + '/5' + ' - ' + ratings.raters + ' votes'
     )
   }
 });

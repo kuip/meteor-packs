@@ -1,5 +1,6 @@
 import React from 'react';
 import QRCode from 'qrcodejs2';
+import { parseQuery } from '../utils.js';
 
 import { ImageComponent } from './ImageComponent';
 
@@ -7,13 +8,15 @@ import './QRRatingComponent.css';
 
 const QRRatingComponent = React.createClass({
   componentWillMount() {
-    this.url = decodeURIComponent(this.props.location.search.substring(5));
+    let { url, tag } = parseQuery(this.props.location.search.substring(1));
+    this.url = decodeURIComponent(url);
+    this.tag = tag;
   },
   render() {
 
     let { url } = this;
     let apiPath = this.props.route.data.apiPath;
-    let ratingUrl = Meteor.absoluteUrl() + apiPath + '?url=' + encodeURIComponent(url);
+    let ratingUrl = Meteor.absoluteUrl() + apiPath + '?uri=' + encodeURIComponent(url) + '&tag=' + (this.tag || 'general');
 
     return React.createElement('div', { className: 'maxh' },
       React.createElement(QRComponent, { url: ratingUrl }),

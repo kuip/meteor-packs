@@ -8,7 +8,7 @@ import { RatingComponent } from '../components/RatingComponent.js';
 const RatingContainer = createContainer(({ location }) => {
   //const uri = decodeURIComponent(location.search.substring(5));
   const { uri, tag } = parseQuery(location.search.substring(1));
-  const query = { rated: uri, userId: Meteor.userId(), tag };
+  const query = { rated: uri, userId: Meteor.userId(), tag: tag || 'general' };
   //console.log('RatingContainer uri', { uri, tag }, query)
   const ratedHandle = Meteor.subscribe('rated', { uri });
   const ratingHandle = Meteor.subscribe('ratings', query);
