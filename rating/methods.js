@@ -39,7 +39,7 @@ Meteor.methods({
 
       // Rated exists, but not with this tag - update tags
       if(!extant.ratings[tag]) {
-        upd['$addToSet'] = { tags: [ tag ]};
+        upd['$addToSet'] = { tags: tag };
       }
 
       // Tag exists, check if previously rated by this user
@@ -51,11 +51,17 @@ Meteor.methods({
 
        // If not prev rated, we update average rating with a diff algo
        if(!prevRated) {
-         // Update average rating for the given tag
-         upd['$set']['ratings.' + tag + '.rating'] = (extant.ratings[tag].rating * extant.ratings[tag].raters + rating) / (extant.ratings[tag].raters + 1);
+         // First rating for the given tag
+         if(!extant.ratings[tag]) {
+           upd['$set']['ratings.' + tag] = { rating: rating, raters: 1};
+         }
+         else {
+           // Update average rating for the given tag
+           upd['$set']['ratings.' + tag + '.rating'] = (extant.ratings[tag].rating * extant.ratings[tag].raters + rating) / (extant.ratings[tag].raters + 1);
 
-         // Update no of raters for the given tag
-         upd['$set']['ratings.' + tag + '.raters'] = extant.ratings[tag].raters + 1;
+           // Update no of raters for the given tag
+           upd['$set']['ratings.' + tag + '.raters'] = extant.ratings[tag].raters + 1;
+         }
        }
        else {
          console.log('Previously rated', prevRated);

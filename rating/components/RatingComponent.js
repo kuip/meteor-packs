@@ -14,9 +14,8 @@ const RatingComponent = React.createClass({
     return { }
   },
   render() {
-    let { uri, loading, rated, rating, ratedExists } = this.props;
+    let { uri, tag='general', loading, rated, rating, ratedExists } = this.props;
     let options = ['', 1, 2, 3, 4, 5];
-    let tag = 'general';
 
     //console.log('rated', rated)
     //console.log('rating', rating)
@@ -25,7 +24,7 @@ const RatingComponent = React.createClass({
     return React.createElement(
       "div", { className: "rating-container", height: '90%'},
       !loading ? React.createElement(RatingStateComponent, { rated, options, tag }) : null,
-      Meteor.userId() && !loading ? React.createElement(RatingActiveComponent, { rating, options, uri }) : null,
+      Meteor.userId() && !loading ? React.createElement(RatingActiveComponent, { rating, options, uri, tag }) : null,
       React.createElement(ImageComponent, {src: uri})
     );
   }
@@ -87,7 +86,7 @@ const RatingActiveComponent = React.createClass({
         //theme: 'bars-1to10'
         onSelect: function(value, text, event) {
           if(Meteor.userId()) {
-            Meteor.call('rate', self.props.uri, parseFloat(value));
+            Meteor.call('rate', self.props.uri, parseFloat(value), self.props.tag);
           }
           else {
             alert('Please Sign In');

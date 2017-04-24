@@ -5,6 +5,7 @@ Meteor.publish('ratings', function(query={}, options={}) {
   console.log('ratings publish', query, options)
   check(query, Object);
   check(options, Object);
+  query.tag = query.tag || 'general';
 
   return Ratings.find(query, options);
 });
