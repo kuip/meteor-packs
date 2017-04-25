@@ -15,11 +15,11 @@ Package.onUse(function(api) {
   api.use('ecmascript');
   api.use([
     "aldeed:collection2@2.10.0",
-    'accounts-password',
-    'accounts-facebook',
-    'accounts-google',
-    'accounts-github',
-    'accounts-twitter',
+    //'accounts-password',
+    //'accounts-facebook',
+    //'accounts-google',
+    //'accounts-github',
+    //'accounts-twitter',
     'accounts-ui',
     'service-configuration',
     'oro8oro:user-schema'
