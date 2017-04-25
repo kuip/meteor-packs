@@ -1,3 +1,5 @@
 .loginButtonsWrap {
-    float: right;
+    position: absolute;
+    right: 0;
+    background: #FFFFFF;
 }
